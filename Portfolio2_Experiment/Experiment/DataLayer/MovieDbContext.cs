@@ -32,9 +32,9 @@ public class MovieDbContext : DbContext
     MapSearchHistories(modelBuilder);
 
     MapNameBasic(modelBuilder);
-        MapKnownForTitles(modelBuilder);
-        MapTitleCharacters(modelBuilder);
-        MapTitlePrincipals(modelBuilder);
+    MapKnownForTitles(modelBuilder);
+    MapTitleCharacters(modelBuilder);
+    MapTitlePrincipals(modelBuilder);
     }
     //User Table Mapping
     private static void MapUsers(ModelBuilder modelBuilder)
@@ -89,14 +89,14 @@ public class MovieDbContext : DbContext
     private static void MapNameBasic(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Person>().ToTable("namebasic");
-        modelBuilder.Entity<Person>().HasKey(p => p.Id);
-        modelBuilder.Entity<Person>().Property(p => p.Id).HasColumnName("personId");
+    //    modelBuilder.Entity<Person>().HasKey(p => p.Id);
+      //  modelBuilder.Entity<Person>().Property(p => p.Id).HasColumnName("personId");
         modelBuilder.Entity<Person>().Property(p => p.NConst).HasColumnName("nconst");
-        modelBuilder.Entity<Person>().Property(p => p.ActualName).HasColumnName("primaryName");
-        modelBuilder.Entity<Person>().Property(p => p.BirthYear).HasColumnName("birthYear");
-        modelBuilder.Entity<Person>().Property(p => p.DeathYear).HasColumnName("deathYear");
-        modelBuilder.Entity<Person>().Property(p => p.PrimaryProfession).HasColumnName("primaryProfession");
-        modelBuilder.Entity<Person>().Property(p => p.KnownForTitles).HasColumnName("knownForTitles");
+     //   modelBuilder.Entity<Person>().Property(p => p.ActualName).HasColumnName("primaryName");
+        modelBuilder.Entity<Person>().Property(p => p.BirthYear).HasColumnName("birthyear");
+        modelBuilder.Entity<Person>().Property(p => p.DeathYear).HasColumnName("deathyear");
+    //    modelBuilder.Entity<Person>().Property(p => p.PrimaryProfession).HasColumnName("primaryProfession");
+    //    modelBuilder.Entity<Person>().Property(p => p.KnownForTitles).HasColumnName("knownForTitles");
     }
 
     // MapTitleCharacters method
@@ -109,11 +109,11 @@ public class MovieDbContext : DbContext
         modelBuilder.Entity<TitleCharacter>().Property(tc => tc.Character).HasColumnName("character");
         modelBuilder.Entity<TitleCharacter>().Property(tc => tc.Ordering).HasColumnName("ordering");
 
-        // Optional: Define relationship to Person
-        modelBuilder.Entity<TitleCharacter>()
-                    .HasOne(tc => tc.Person)
-                    .WithMany()
-                    .HasForeignKey(tc => tc.NConst);
+        //// Optional: Define relationship to Person
+        //modelBuilder.Entity<TitleCharacter>()
+        //            .HasOne(tc => tc.Person)
+        //            .WithMany()
+        //            .HasForeignKey(tc => tc.NConst);
     }
     // MapKnownForTitles method
     private static void MapKnownForTitles(ModelBuilder modelBuilder)
@@ -126,10 +126,10 @@ public class MovieDbContext : DbContext
 
 
     // relationship to Person
-        modelBuilder.Entity<KnownForTitle>()
-                    .HasOne(k => k.Person)
-                    .WithMany(p => p.KnownForTitlesList)
-                    .HasForeignKey(k => k.NConst);
+        //modelBuilder.Entity<KnownForTitle>()
+        //            .HasOne(k => k.Person)
+        //            .WithMany(p => p.KnownForTitlesList)
+        //            .HasForeignKey(k => k.NConst);
     }
     private static void MapTitlePrincipals(ModelBuilder modelBuilder)
     {
@@ -141,11 +141,11 @@ public class MovieDbContext : DbContext
         modelBuilder.Entity<TitlePrincipal>().Property(tp => tp.Category).HasColumnName("category");
         modelBuilder.Entity<TitlePrincipal>().Property(tp => tp.Job).HasColumnName("job");
 
-        // Optional: Define relationship to Person
-        modelBuilder.Entity<TitlePrincipal>()
-                    .HasOne(tp => tp.Person)
-                    .WithMany()
-                    .HasForeignKey(tp => tp.NConst);
+        //// Optional: Define relationship to Person
+        //modelBuilder.Entity<TitlePrincipal>()
+        //            .HasOne(tp => tp.Person)
+        //            .WithMany()
+        //            .HasForeignKey(tp => tp.NConst);
     }
 
 }

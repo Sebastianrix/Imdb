@@ -20,7 +20,7 @@ namespace WebApi.Controllers
         [HttpGet("{nconst}")]
         public ActionResult<Person> GetNameBasicByNConst(string nconst)
         {
-            var nameBasic = _dataService.GetPersonByNConst(nconst);  
+            var nameBasic = _dataService.GetPersonByNConst(nconst);
             if (nameBasic == null)
             {
                 return NotFound();
@@ -35,26 +35,28 @@ namespace WebApi.Controllers
             return Ok(_dataService.GetAllPersons());  // Assuming this retrieves all NameBasic entries
         }
 
-      
-        [HttpPost]
-        public ActionResult<Person> AddNameBasic([FromBody] Person nameBasic)
-        {
-            var result = _dataService.AddPerson(
-                nameBasic.ActualName,
-                nameBasic.BirthYear,
-                nameBasic.DeathYear,
-                nameBasic.PrimaryProfession,
-                nameBasic.KnownForTitles);
 
-            return CreatedAtAction(nameof(GetNameBasicByNConst), new { nconst = result.NConst }, result);
-        }
+        //    [HttpPost]
+        //    public ActionResult<Person> AddNameBasic([FromBody] Person nameBasic)
+        //    {
+        //        var result = _dataService.AddPerson(
+        //          //  nameBasic.ActualName,
+        //            nameBasic.BirthYear,
+        //            nameBasic.DeathYear
+        //          // , nameBasic.PrimaryProfession,
+        //          //  nameBasic.KnownForTitles
+        //          );
 
-        // DELETE: api/NameBasic/{nconst}
-        [HttpDelete("{nconst}")]
-        public IActionResult DeleteNameBasic(string nconst)
-        {
-            _dataService.DeletePerson(nconst);  
-            return NoContent();
-        }
+        //        return CreatedAtAction(nameof(GetNameBasicByNConst), new { nconst = result.NConst }, result);
+        //    }
+
+        //    // DELETE: api/NameBasic/{nconst}
+        //    [HttpDelete("{nconst}")]
+        //    public IActionResult DeleteNameBasic(string nconst)
+        //    {
+        //        _dataService.DeletePerson(nconst);  
+        //        return NoContent();
+        //    }
+        //}
     }
 }

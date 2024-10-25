@@ -16,27 +16,27 @@ namespace WebApi.Controllers
             _dataService = dataService;
         }
 
-        // GET: api/KnownForTitle/{nconst}
-        [HttpGet("{nconst}")]
-        public ActionResult<IList<KnownForTitle>> GetKnownForTitlesByPerson(string nconst)
-        {
-            return Ok(_dataService.GetKnownForTitlesByPerson(nconst));
-        }
+        //// GET: api/KnownForTitle/{nconst}
+        //[HttpGet("{nconst}")]
+        //public ActionResult<IList<KnownForTitle>> GetKnownForTitlesByPerson(string nconst)
+        //{
+        //    return Ok(_dataService.GetKnownForTitlesByPerson(nconst));
+        //}
 
         // POST: api/KnownForTitle
-        [HttpPost]
-        public ActionResult<KnownForTitle> AddKnownForTitle([FromBody] KnownForTitle knownForTitle)
-        {
-            var result = _dataService.AddKnownForTitle(knownForTitle.NConst, knownForTitle.KnownForTitles);
-            return CreatedAtAction(nameof(GetKnownForTitlesByPerson), new { nconst = knownForTitle.NConst }, result);
-        }
+        //[HttpPost]
+        //public ActionResult<KnownForTitle> AddKnownForTitle([FromBody] KnownForTitle knownForTitle)
+        //{
+        //    var result = _dataService.AddKnownForTitle(knownForTitle.NConst, knownForTitle.KnownForTitles);
+        //    return CreatedAtAction(nameof(GetKnownForTitlesByPerson), new { nconst = knownForTitle.NConst }, result);
+        //}
 
-        // DELETE: api/KnownForTitle/{nconst}/{knownForTitle}
-        [HttpDelete("{nconst}/{knownForTitle}")]
-        public IActionResult DeleteKnownForTitle(string nconst, string knownForTitle)
-        {
-            _dataService.DeleteKnownForTitle(nconst, knownForTitle);
-            return NoContent();
-        }
+        //// DELETE: api/KnownForTitle/{nconst}/{knownForTitle}
+        //[HttpDelete("{nconst}/{knownForTitle}")]
+        //public IActionResult DeleteKnownForTitle(string nconst, string knownForTitle)
+        //{
+        //    _dataService.DeleteKnownForTitle(nconst, knownForTitle);
+        //    return NoContent();
+        //}
     }
 }

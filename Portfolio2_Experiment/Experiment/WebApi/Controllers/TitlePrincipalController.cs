@@ -23,26 +23,27 @@ namespace WebApi.Controllers
             return Ok(_dataService.GetTitlePrincipalsByTitle(tconst));
         }
 
-        // POST: api/TitlePrincipal
-        [HttpPost]
-        public ActionResult<TitlePrincipal> AddTitlePrincipal([FromBody] TitlePrincipal titlePrincipal)
-        {
-            var result = _dataService.AddTitlePrincipal(
-                titlePrincipal.TConst,
-                titlePrincipal.NConst,
-                titlePrincipal.Ordering,
-                titlePrincipal.Category,
-                titlePrincipal.Job);
+        //    // POST: api/TitlePrincipal
+        //    [HttpPost]
+        //    public ActionResult<TitlePrincipal> AddTitlePrincipal([FromBody] TitlePrincipal titlePrincipal)
+        //    {
+        //        var result = _dataService.AddTitlePrincipal(
+        //            titlePrincipal.TConst,
+        //            titlePrincipal.NConst,
+        //            titlePrincipal.Ordering,
+        //            titlePrincipal.Category,
+        //            titlePrincipal.Job);
 
-            return CreatedAtAction(nameof(GetTitlePrincipalsByTitle), new { tconst = titlePrincipal.TConst }, result);
-        }
+        //        return CreatedAtAction(nameof(GetTitlePrincipalsByTitle), new { tconst = titlePrincipal.TConst }, result);
+        //    }
 
-        // DELETE: api/TitlePrincipal/{tconst}/{nconst}/{ordering}
-        [HttpDelete("{tconst}/{nconst}/{ordering}")]
-        public IActionResult DeleteTitlePrincipal(string tconst, string nconst, int ordering)
-        {
-            _dataService.DeleteTitlePrincipal(tconst, nconst, ordering);
-            return NoContent();
-        }
+        //    // DELETE: api/TitlePrincipal/{tconst}/{nconst}/{ordering}
+        //    [HttpDelete("{tconst}/{nconst}/{ordering}")]
+        //    public IActionResult DeleteTitlePrincipal(int tconst, int nconst, int ordering)
+        //    {
+        //        _dataService.DeleteTitlePrincipal(tconst, nconst, ordering);
+        //        return NoContent();
+        //    }
+        //}
     }
 }

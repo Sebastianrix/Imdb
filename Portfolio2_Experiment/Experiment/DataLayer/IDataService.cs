@@ -14,7 +14,7 @@ namespace DataLayer
         // --BOOKMARK--
         IList<Bookmark> GetBookmarks(int userId);
         Bookmark GetBookmark(int userId, int bookmarkId);
-        Bookmark AddBookmark(int userId, string tconst, string nconst, string note);
+        Bookmark AddBookmark(int userId, int tconst, int nconst, string note);
         void DeleteBookmark(int userId, int bookmarkId);
 
         // --SEARCH HISTORY--
@@ -31,10 +31,10 @@ namespace DataLayer
 
 
         // --PERSON--
-        Person GetPersonById(int personId);
+     //   Person GetPersonById(int personId);
         Person GetPersonByNConst(string nconst);
         IList<Person> GetAllPersons();
-        Person AddPerson(string actualName, string birthYear, string deathYear, string primaryProfession, string knownForTitles);
+       // Person AddPerson(/*string actualName,*/ string birthYear, string deathYear, string primaryProfession, string knownForTitles);
         void DeletePerson(string nconst);
 
         IList<KnownForTitle> GetKnownForTitlesByPerson(string nconst);

@@ -68,7 +68,7 @@ namespace DataLayer
             return _context.Bookmarks.FirstOrDefault(b => b.UserId == userId && b.Id == bookmarkId);
         }
 
-        public Bookmark AddBookmark(int userId, string tconst, string nconst, string note)
+        public Bookmark AddBookmark(int userId, int tconst, int nconst, string note)
         {
             var bookmark = new Bookmark
             {
@@ -177,10 +177,10 @@ namespace DataLayer
 
 
         // --PERSON-- (Actors, Directors, Writers)
-        public Person GetPersonById(int personId)
-        {
-            return _context.Persons.FirstOrDefault(p => p.Id == personId);
-        }
+        //public Person GetPersonById(string personId)
+        //{
+        //    return _context.Persons.FirstOrDefault(p => p.Id == personId);
+        //}
 
         public Person GetPersonByNConst(string nconst)
         {
@@ -192,20 +192,20 @@ namespace DataLayer
             return _context.Persons.ToList();
         }
 
-        public Person AddPerson(string actualName, string birthYear, string deathYear, string primaryProfession, string knownForTitles)
-        {
-            var person = new Person
-            {
-                ActualName = actualName,
-                BirthYear = birthYear,
-                DeathYear = deathYear,
-                PrimaryProfession = primaryProfession,
-                KnownForTitles = knownForTitles
-            };
-            _context.Persons.Add(person);
-            _context.SaveChanges();
-            return person;
-        }
+        //public Person AddPerson(/*string actualName,*/ DateTime birthYear, DateTime deathYear, string primaryProfession, string knownForTitles)
+        //{
+        //    var person = new Person
+        //    {
+        //       // ActualName = actualName,
+        //        BirthYear = birthYear,
+        //        DeathYear = deathYear,
+        //       // PrimaryProfession = primaryProfession,
+        //     //   KnownForTitles = knownForTitles
+        //    };
+        //    _context.Persons.Add(person);
+        //    _context.SaveChanges();
+        //    return person;
+        //}
 
         public void DeletePerson(string nconst)
         {
