@@ -13,7 +13,7 @@ namespace DataLayer
         public DataService(IConfiguration configuration)
         {
             var options = new DbContextOptionsBuilder<MovieDbContext>()
-              .UseNpgsql(configuration.GetConnectionString("MovieDb"))
+              .UseNpgsql(configuration.GetConnectionString("DefaultConnection"))
               .Options;
 
             _context = new MovieDbContext(options);
