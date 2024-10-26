@@ -6,8 +6,8 @@ namespace DataLayer.Models
 {
     public class Person
     {
-        // public string Id { get; set; }
-        //     public string ActualName { get; set; }
+
+        public string ActualName { get; set; }
         [Key]
         public string NConst { get; set; }
         public string? BirthYear { get; set; }

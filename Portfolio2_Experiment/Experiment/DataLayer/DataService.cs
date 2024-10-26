@@ -68,7 +68,7 @@ namespace DataLayer
             return _context.Bookmarks.FirstOrDefault(b => b.UserId == userId && b.Id == bookmarkId);
         }
 
-        public Bookmark AddBookmark(int userId, int tconst, int nconst, string note)
+        public Bookmark AddBookmark(int userId, string tconst, string nconst, string note)
         {
             var bookmark = new Bookmark
             {
@@ -177,11 +177,6 @@ namespace DataLayer
 
 
         // --PERSON-- (Actors, Directors, Writers)
-        //public Person GetPersonById(string personId)
-        //{
-        //    return _context.Persons.FirstOrDefault(p => p.Id == personId);
-        //}
-
         public Person GetPersonByNConst(string nconst)
         {
             return _context.Persons.FirstOrDefault(p => p.NConst == nconst);
@@ -192,62 +187,16 @@ namespace DataLayer
             return _context.Persons.ToList();
         }
 
-        //public Person AddPerson(/*string actualName,*/ DateTime birthYear, DateTime deathYear, string primaryProfession, string knownForTitles)
-        //{
-        //    var person = new Person
-        //    {
-        //       // ActualName = actualName,
-        //        BirthYear = birthYear,
-        //        DeathYear = deathYear,
-        //       // PrimaryProfession = primaryProfession,
-        //     //   KnownForTitles = knownForTitles
-        //    };
-        //    _context.Persons.Add(person);
-        //    _context.SaveChanges();
-        //    return person;
-        //}
 
-        public void DeletePerson(string nconst)
-        {
-            var person = _context.Persons.FirstOrDefault(p => p.NConst == nconst);
-            if (person != null)
-            {
-                _context.Persons.Remove(person);
-                _context.SaveChanges();
-            }
-        }
-        // --TITLE CHARACTERS--
         public IList<TitleCharacter> GetTitleCharactersByPerson(string nconst)
         {
             return _context.TitleCharacters
+                           .Include(tc => tc.TitleBasic) // This will include the related TitleBasic entity
                            .Where(tc => tc.NConst == nconst)
                            .ToList();
         }
 
-        public TitleCharacter AddTitleCharacter(string nconst, string tconst, string character, int ordering)
-        {
-            var titleCharacter = new TitleCharacter
-            {
-                NConst = nconst,
-                TConst = tconst,
-                Character = character,
-                Ordering = ordering
-            };
-            _context.TitleCharacters.Add(titleCharacter);
-            _context.SaveChanges();
-            return titleCharacter;
-        }
 
-        public void DeleteTitleCharacter(string nconst, string tconst, string character)
-        {
-            var titleCharacter = _context.TitleCharacters
-                                         .FirstOrDefault(tc => tc.NConst == nconst && tc.TConst == tconst && tc.Character == character);
-            if (titleCharacter != null)
-            {
-                _context.TitleCharacters.Remove(titleCharacter);
-                _context.SaveChanges();
-            }
-        }
         // --TITLE PRINCIPALS--
         public IList<TitlePrincipal> GetTitlePrincipalsByTitle(string tconst)
         {
@@ -256,32 +205,8 @@ namespace DataLayer
                            .ToList();
         }
 
-        public TitlePrincipal AddTitlePrincipal(string tconst, string nconst, int ordering, string category, string job)
-        {
-            var titlePrincipal = new TitlePrincipal
-            {
-                TConst = tconst,
-                NConst = nconst,
-                Ordering = ordering,
-                Category = category,
-                Job = job
-            };
-            _context.TitlePrincipals.Add(titlePrincipal);
-            _context.SaveChanges();
-            return titlePrincipal;
-        }
-
-        public void DeleteTitlePrincipal(string tconst, string nconst, int ordering)
-        {
-            var titlePrincipal = _context.TitlePrincipals
-                                         .FirstOrDefault(tp => tp.TConst == tconst && tp.NConst == nconst && tp.Ordering == ordering);
-            if (titlePrincipal != null)
-            {
-                _context.TitlePrincipals.Remove(titlePrincipal);
-                _context.SaveChanges();
-            }
-        }
-
+      
+      
         // --KNOWN FOR TITLES--
         public IList<KnownForTitle> GetKnownForTitlesByPerson(string nconst)
         {
@@ -290,29 +215,6 @@ namespace DataLayer
                            .ToList();
         }
 
-        public KnownForTitle AddKnownForTitle(string nconst, string knownForTitle)
-        {
-            var knownFor = new KnownForTitle
-            {
-                NConst = nconst,
-                KnownForTitles = knownForTitle
-            };
-            _context.KnownForTitles.Add(knownFor);
-            _context.SaveChanges();
-            return knownFor;
-        }
-
-        public void DeleteKnownForTitle(string nconst, string knownForTitle)
-        {
-            var knownFor = _context.KnownForTitles
-                                   .FirstOrDefault(k => k.NConst == nconst && k.KnownForTitles == knownForTitle);
-            if (knownFor != null)
-            {
-                _context.KnownForTitles.Remove(knownFor);
-                _context.SaveChanges();
-            }
-        }
-
-
+    
     }
 }

@@ -23,25 +23,6 @@ namespace WebApi.Controllers
             return Ok(_dataService.GetTitleCharactersByPerson(nconst));
         }
 
-        // POST: api/TitleCharacter
-        [HttpPost]
-        public ActionResult<TitleCharacter> AddTitleCharacter([FromBody] TitleCharacter titleCharacter)
-        {
-            var result = _dataService.AddTitleCharacter(
-                titleCharacter.NConst,
-                titleCharacter.TConst,
-                titleCharacter.Character,
-                titleCharacter.Ordering);
-
-            return CreatedAtAction(nameof(GetTitleCharactersByPerson), new { nconst = titleCharacter.NConst }, result);
-        }
-
-        // DELETE: api/TitleCharacter/{nconst}/{tconst}/{character}
-        [HttpDelete("{nconst}/{tconst}/{character}")]
-        public IActionResult DeleteTitleCharacter(string nconst, string tconst, string character)
-        {
-            _dataService.DeleteTitleCharacter(nconst, tconst, character);
-            return NoContent();
-        }
+  
     }
 }

@@ -15,7 +15,7 @@ namespace WebApi.Controllers
         {
             _dataService = dataService;
         }
-
+        
         // GET: api/NameBasic/{nconst}
         [HttpGet("{nconst}")]
         public ActionResult<Person> GetNameBasicByNConst(string nconst)

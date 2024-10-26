@@ -16,12 +16,12 @@ namespace WebApi.Controllers
             _dataService = dataService;
         }
 
-        //// GET: api/KnownForTitle/{nconst}
-        //[HttpGet("{nconst}")]
-        //public ActionResult<IList<KnownForTitle>> GetKnownForTitlesByPerson(string nconst)
-        //{
-        //    return Ok(_dataService.GetKnownForTitlesByPerson(nconst));
-        //}
+        // GET: api/KnownForTitle/{nconst}
+        [HttpGet("{nconst}")]
+        public ActionResult<IList<KnownForTitle>> GetKnownForTitlesByPerson(string nconst)
+        {
+            return Ok(_dataService.GetKnownForTitlesByPerson(nconst));
+        }
 
         // POST: api/KnownForTitle
         //[HttpPost]
