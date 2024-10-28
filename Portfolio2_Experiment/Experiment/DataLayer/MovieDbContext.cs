@@ -85,6 +85,7 @@ namespace DataLayer
         private static void MapNameBasic(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Person>().ToTable("namebasic");
+            modelBuilder.Entity<Person>().HasKey(p => p.NConst);
             modelBuilder.Entity<Person>().Property(p => p.NConst).HasColumnName("nconst");
             modelBuilder.Entity<Person>().Property(p => p.BirthYear).HasColumnName("birthyear");
             modelBuilder.Entity<Person>().Property(p => p.DeathYear).HasColumnName("deathyear");
@@ -101,16 +102,15 @@ namespace DataLayer
             modelBuilder.Entity<TitleCharacter>().Property(tc => tc.Character).HasColumnName("character");
             modelBuilder.Entity<TitleCharacter>().Property(tc => tc.Ordering).HasColumnName("ordering");
 
-         
             modelBuilder.Entity<TitleCharacter>()
                 .HasOne(tc => tc.TitleBasic)
                 .WithMany()
                 .HasForeignKey(tc => tc.TConst)
                 .HasPrincipalKey(tb => tb.TConst);
 
-           modelBuilder.Entity<TitleCharacter>()
+            modelBuilder.Entity<TitleCharacter>()
                 .HasOne(tc => tc.Person)
-                .WithMany() 
+                .WithMany()
                 .HasForeignKey(tc => tc.NConst)
                 .HasPrincipalKey(p => p.NConst);
         }
@@ -123,23 +123,42 @@ namespace DataLayer
             modelBuilder.Entity<KnownForTitle>().Property(k => k.NConst).HasColumnName("nconst");
             modelBuilder.Entity<KnownForTitle>().Property(k => k.KnownForTitles).HasColumnName("knownfortitles");
 
-            // Define the relationship between KnownForTitle and Person
             modelBuilder.Entity<KnownForTitle>()
                 .HasOne(k => k.Person)
-                .WithMany() // Assuming a Person can be known for many titles
-                .HasForeignKey(k => k.NConst) // Specify that 'NConst' in KnownForTitle links to 'NConst' in Person
-                .HasPrincipalKey(p => p.NConst); // Use 'NConst' as the primary key in Person
+                .WithMany()
+                .HasForeignKey(k => k.NConst)
+                .HasPrincipalKey(p => p.NConst);
+
+            modelBuilder.Entity<KnownForTitle>()
+                .HasOne(k => k.TitleBasic)
+                .WithMany()
+                .HasForeignKey(k => k.KnownForTitles)
+                .HasPrincipalKey(tb => tb.TConst); // Explicitly specify that 'knownfortitles' maps to 'tconst' in TitleBasic
         }
+
         // MapTitlePrincipals method
         private static void MapTitlePrincipals(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<TitlePrincipal>().ToTable("titleprincipals");
-            modelBuilder.Entity<TitlePrincipal>().HasKey(tp => new { tp.TConst, tp.NConst, tp.Ordering });
+            modelBuilder.Entity<TitlePrincipal>().HasKey(tp => new { tp.TConst, tp.NConst }); 
             modelBuilder.Entity<TitlePrincipal>().Property(tp => tp.TConst).HasColumnName("tconst");
             modelBuilder.Entity<TitlePrincipal>().Property(tp => tp.NConst).HasColumnName("nconst");
             modelBuilder.Entity<TitlePrincipal>().Property(tp => tp.Ordering).HasColumnName("ordering");
             modelBuilder.Entity<TitlePrincipal>().Property(tp => tp.Category).HasColumnName("category");
             modelBuilder.Entity<TitlePrincipal>().Property(tp => tp.Job).HasColumnName("job");
+
+
+            modelBuilder.Entity<TitlePrincipal>()
+                .HasOne(tp => tp.Person)
+                .WithMany()
+                .HasForeignKey(tp => tp.NConst)
+                .HasPrincipalKey(p => p.NConst);
+
+            modelBuilder.Entity<TitlePrincipal>()
+                .HasOne(tp => tp.TitleBasic)
+                .WithMany()
+                .HasForeignKey(tp => tp.TConst)
+                .HasPrincipalKey(tb => tb.TConst);
         }
 
         // MapTitleBasic method
@@ -148,10 +167,9 @@ namespace DataLayer
             modelBuilder.Entity<TitleBasic>().ToTable("titlebasic");
             modelBuilder.Entity<TitleBasic>().HasKey(tb => tb.TConst);
             modelBuilder.Entity<TitleBasic>().Property(tb => tb.TConst).HasColumnName("tconst");
-            modelBuilder.Entity<TitleBasic>().Property(tb => tb.PrimaryTitle).HasColumnName("primarytitle"); 
+            modelBuilder.Entity<TitleBasic>().Property(tb => tb.PrimaryTitle).HasColumnName("primarytitle");
             modelBuilder.Entity<TitleBasic>().Property(tb => tb.TitleType).HasColumnName("titletype");
             modelBuilder.Entity<TitleBasic>().Property(tb => tb.StartYear).HasColumnName("startyear");
-
         }
     }
 }

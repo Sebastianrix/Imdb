@@ -43,7 +43,7 @@ namespace DataLayer
 
 
         // --TITLE PRINCIPALS--
-        IList<TitlePrincipal> GetTitlePrincipalsByTitle(string tconst);
+        IList<TitlePrincipal> GetTitlePrincipalsByPerson(string nconst);
     
     }
 }

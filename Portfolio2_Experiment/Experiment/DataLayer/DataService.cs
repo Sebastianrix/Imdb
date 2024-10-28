@@ -187,21 +187,25 @@ namespace DataLayer
             return _context.Persons.ToList();
         }
 
-
         public IList<TitleCharacter> GetTitleCharactersByPerson(string nconst)
         {
             return _context.TitleCharacters
-                           .Include(tc => tc.TitleBasic) // This will include the related TitleBasic entity
+                           .Include(tc => tc.TitleBasic) 
+                           .Include(tc => tc.Person) 
                            .Where(tc => tc.NConst == nconst)
                            .ToList();
         }
 
 
+
         // --TITLE PRINCIPALS--
-        public IList<TitlePrincipal> GetTitlePrincipalsByTitle(string tconst)
+        public IList<TitlePrincipal> GetTitlePrincipalsByPerson(string nconst)
         {
             return _context.TitlePrincipals
-                           .Where(tp => tp.TConst == tconst)
+                .Include(tp => tp.Person)
+                .Include(tp => tp.TitleBasic)
+
+                           .Where(tp => tp.NConst == nconst)
                            .ToList();
         }
 
@@ -211,7 +215,9 @@ namespace DataLayer
         public IList<KnownForTitle> GetKnownForTitlesByPerson(string nconst)
         {
             return _context.KnownForTitles
+                .Include(tc => tc.TitleBasic)
                            .Where(k => k.NConst == nconst)
+                           
                            .ToList();
         }
 

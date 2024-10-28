@@ -7,5 +7,6 @@
 
 
         public Person Person { get; set; }
+        public TitleBasic TitleBasic { get; set; }
     }
 }
