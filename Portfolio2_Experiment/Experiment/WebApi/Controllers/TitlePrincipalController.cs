@@ -2,6 +2,8 @@
 using DataLayer.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Linq;
+using WebApi.DTOs;
 
 namespace WebApi.Controllers
 {
@@ -16,12 +18,26 @@ namespace WebApi.Controllers
             _dataService = dataService;
         }
 
-        // GET: api/TitlePrincipal/{tconst}
-        [HttpGet("{tconst}")]
-        public ActionResult<IList<TitlePrincipal>> GetTitlePrincipalsByPerson(string nconst)
+        // GET: api/TitlePrincipal/{nconst}
+        [HttpGet("{nconst}")]
+        public ActionResult<IList<TitlePrincipalDto>> GetTitlePrincipalsByPerson(string nconst)
         {
-            return Ok(_dataService.GetTitlePrincipalsByPerson(nconst));
-        }
+            var titlePrincipals = _dataService.GetTitlePrincipalsByPerson(nconst);
+            if (titlePrincipals == null || !titlePrincipals.Any())
+            {
+                return NotFound();
+            }
 
+            var dtoList = titlePrincipals.Select(tp => new TitlePrincipalDto
+            {
+                TConst = tp.TConst,
+                NConst = tp.NConst,
+                Ordering = tp.Ordering,
+                Category = tp.Category,
+                Job = tp.Job
+            }).ToList();
+
+            return Ok(dtoList);
+        }
     }
 }

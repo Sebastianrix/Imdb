@@ -1,7 +1,8 @@
 ﻿using DataLayer;
-using DataLayer.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Linq;
+using WebApi.DTOs;
 
 namespace WebApi.Controllers
 {
@@ -15,48 +16,47 @@ namespace WebApi.Controllers
         {
             _dataService = dataService;
         }
-        
+
         // GET: api/NameBasic/{nconst}
         [HttpGet("{nconst}")]
-        public ActionResult<Person> GetNameBasicByNConst(string nconst)
+        public ActionResult<NameBasicDetailDto> GetNameBasicByNConst(string nconst)
         {
-            var nameBasic = _dataService.GetPersonByNConst(nconst);
-            if (nameBasic == null)
+            var person = _dataService.GetPersonByNConst(nconst);
+            if (person == null)
             {
                 return NotFound();
             }
-            return Ok(nameBasic);
+
+            // Populate the DTO, splitting KnownForTitles if it's a comma-separated string
+            var dto = new NameBasicDetailDto
+            {
+                NConst = person.NConst,
+                PrimaryName = person.ActualName,
+                BirthYear = person.BirthYear,
+                DeathYear = person.DeathYear,
+                PrimaryProfession = person.PrimaryProfession,
+                KnownForTitles = person.KnownForTitles?.Split(',').ToList() ?? new List<string>()
+            };
+
+            return Ok(dto);
         }
 
         // GET: api/NameBasic
         [HttpGet]
-        public ActionResult<IList<Person>> GetAllNameBasics()
+        public ActionResult<IList<NameBasicDetailDto>> GetAllNameBasics()
         {
-            return Ok(_dataService.GetAllPersons());  // Assuming this retrieves all NameBasic entries
+            var persons = _dataService.GetAllPersons();
+            var dtoList = persons.Select(p => new NameBasicDetailDto
+            {
+                NConst = p.NConst,
+                PrimaryName = p.ActualName,
+                BirthYear = p.BirthYear,
+                DeathYear = p.DeathYear,
+                PrimaryProfession = p.PrimaryProfession,
+                KnownForTitles = p.KnownForTitles?.Split(',').ToList() ?? new List<string>()
+            }).ToList();
+
+            return Ok(dtoList);
         }
-
-
-        //    [HttpPost]
-        //    public ActionResult<Person> AddNameBasic([FromBody] Person nameBasic)
-        //    {
-        //        var result = _dataService.AddPerson(
-        //          //  nameBasic.ActualName,
-        //            nameBasic.BirthYear,
-        //            nameBasic.DeathYear
-        //          // , nameBasic.PrimaryProfession,
-        //          //  nameBasic.KnownForTitles
-        //          );
-
-        //        return CreatedAtAction(nameof(GetNameBasicByNConst), new { nconst = result.NConst }, result);
-        //    }
-
-        //    // DELETE: api/NameBasic/{nconst}
-        //    [HttpDelete("{nconst}")]
-        //    public IActionResult DeleteNameBasic(string nconst)
-        //    {
-        //        _dataService.DeletePerson(nconst);  
-        //        return NoContent();
-        //    }
-        //}
     }
 }

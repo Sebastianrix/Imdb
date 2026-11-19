@@ -1,6 +1,8 @@
 ﻿using DataLayer.Models;
 using System.Collections.Generic;
 
+
+
 namespace DataLayer
 {
     public interface IDataService
@@ -29,21 +31,17 @@ namespace DataLayer
         UserRating AddUserRating(int userId, int tconst, int rating);
         void DeleteUserRating(int userId, int tconst);
 
-
         // --PERSON--
         Person GetPersonByNConst(string nconst);
         IList<Person> GetAllPersons();
+      
 
- 
         IList<KnownForTitle> GetKnownForTitlesByPerson(string nconst);
-       
 
         // --TITLE CHARACTERS--
         IList<TitleCharacter> GetTitleCharactersByPerson(string nconst);
 
-
         // --TITLE PRINCIPALS--
         IList<TitlePrincipal> GetTitlePrincipalsByPerson(string nconst);
-    
     }
 }

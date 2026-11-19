@@ -23,20 +23,6 @@ namespace WebApi.Controllers
             return Ok(_dataService.GetKnownForTitlesByPerson(nconst));
         }
 
-        // POST: api/KnownForTitle
-        //[HttpPost]
-        //public ActionResult<KnownForTitle> AddKnownForTitle([FromBody] KnownForTitle knownForTitle)
-        //{
-        //    var result = _dataService.AddKnownForTitle(knownForTitle.NConst, knownForTitle.KnownForTitles);
-        //    return CreatedAtAction(nameof(GetKnownForTitlesByPerson), new { nconst = knownForTitle.NConst }, result);
-        //}
-
-        //// DELETE: api/KnownForTitle/{nconst}/{knownForTitle}
-        //[HttpDelete("{nconst}/{knownForTitle}")]
-        //public IActionResult DeleteKnownForTitle(string nconst, string knownForTitle)
-        //{
-        //    _dataService.DeleteKnownForTitle(nconst, knownForTitle);
-        //    return NoContent();
-        //}
+   
     }
 }

@@ -4,6 +4,7 @@ using DataLayer.Models;
 using System.Collections.Generic;
 using System.Linq;
 
+
 namespace DataLayer
 {
     public class DataService : IDataService
@@ -186,6 +187,9 @@ namespace DataLayer
         {
             return _context.Persons.ToList();
         }
+
+       
+
 
         public IList<TitleCharacter> GetTitleCharactersByPerson(string nconst)
         {

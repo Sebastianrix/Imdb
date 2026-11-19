@@ -133,7 +133,7 @@ namespace DataLayer
                 .HasOne(k => k.TitleBasic)
                 .WithMany()
                 .HasForeignKey(k => k.KnownForTitles)
-                .HasPrincipalKey(tb => tb.TConst); // Explicitly specify that 'knownfortitles' maps to 'tconst' in TitleBasic
+                .HasPrincipalKey(tb => tb.TConst); 
         }
 
         // MapTitlePrincipals method
